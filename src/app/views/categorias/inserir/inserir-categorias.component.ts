@@ -15,7 +15,7 @@ import { CategoriaService } from '../services/categoria.service';
   templateUrl: './inserir-categorias.component.html'
 })
 
-export class InserirCategoriasComponent {
+export class InserirCategoriaComponent {
   categoriaForm: FormGroup;
 
   constructor(
@@ -31,9 +31,9 @@ export class InserirCategoriasComponent {
     });
   }
 
-  get titulo() {
-    return this.categoriaForm.get('titulo');
-  }
+  // get titulo() {
+  //   return this.categoriaForm.get('titulo');
+  // }
 
   cadastrar() {
     if (this.categoriaForm.invalid) return;
