@@ -27,11 +27,13 @@ export class NotaService {
   }
 
   selecionarTodos(): Observable<ListarNota[]> {
-    return this.http.get<ListarNota[]>(this.url);
+    const urlCompleto = `${this.url}?_expand=categoria`;
+
+    return this.http.get<ListarNota[]>(urlCompleto);
   }
 
   selecionarPorId(id: number): Observable<DetalhesNota> {
-    const urlCompleto = `${this.url}/${id}`;
+    const urlCompleto = `${this.url}/${id}_expand=categoria`;
     return this.http.get<DetalhesNota>(urlCompleto);
   }
 }

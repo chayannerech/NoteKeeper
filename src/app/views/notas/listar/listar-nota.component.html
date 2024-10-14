@@ -16,25 +16,33 @@
   <hr>
 
   <div *ngIf="notas$ | async as notas" class="row g-3 mt-2">
-    <div *ngFor="let cat of notas" class="col-lg-4 col-xxl-3">
+    <div *ngFor="let nota of notas" class="col-lg-4">
       <mat-card class="mat-mdc-elevation-specific mat-elevation-z3 h-100">
-        <mat-card-header>
+
+        <mat-card-header class="d-flex justify-content-between">
           <mat-card-title class="app-titulo-card">
-            {{ cat.titulo }}
+            {{ nota.titulo }}
           </mat-card-title>
+
+          <span> {{ nota.categoria.titulo }} </span>
         </mat-card-header>
+
+        <mat-card-content>
+          <p>{{ nota.conteudo }}</p>
+        </mat-card-content>
+
         <mat-card-footer class="d-flex justify-content-end p-3 mt-auto gap-1">
           <a mat-icon-button
             class="app-btn-editar"
-            [routerLink]="['/notas', 'editar', cat.id]"
-            matTooltip="Editar {{ cat.titulo }}"
+            [routerLink]="['/notas', 'editar', nota.id]"
+            matTooltip="Editar {{ nota.titulo }}"
           >
             <mat-icon> edit </mat-icon>
           </a>
           <a mat-icon-button
             class="app-btn-excluir"
-            [routerLink]="['/notas', 'excluir', cat.id]"
-            matTooltip="Excluir {{ cat.titulo }}"
+            [routerLink]="['/notas', 'excluir', nota.id]"
+            matTooltip="Excluir {{ nota.titulo }}"
           >
             <mat-icon> delete </mat-icon>
           </a>
