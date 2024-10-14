@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { ItemDashboard } from './models/item-dash-model';
 import { RouterLink } from '@angular/router';
-import { NgForOf } from '@angular/common';
+import { AsyncPipe, NgForOf } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({

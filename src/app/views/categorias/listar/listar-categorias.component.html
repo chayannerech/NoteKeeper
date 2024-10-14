@@ -2,7 +2,7 @@
   <h1 class="fs-2">Lista de Categorias</h1>
   <hr>
 
-  <div class="row g-3 mt-2">
+  <div *ngIf="categorias$ | async as categorias" class="row g-3 mt-2">
     <div *ngFor="let cat of categorias" class="col-lg-4 col-xxl-3">
       <mat-card class="mat-mdc-elevation-specific mat-elevation-z3 h-100">
         <mat-card-header>
