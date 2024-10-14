@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
-import { CategoriaEditada, CategoriaInserida, DetalhesCategoria, EditarCategoria, InserirCategoria, ListarCategorias } from '../models/categoria.models';
+import { CategoriaEditada, CategoriaExcluida, CategoriaInserida, DetalhesCategoria, EditarCategoria, InserirCategoria, ListarCategorias } from '../models/categoria.models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -21,11 +21,16 @@ export class CategoriaService {
     return this.http.put<CategoriaEditada>(urlCompleto, categoriaEditada);
   }
 
+  excluir(id: number): Observable<CategoriaExcluida> {
+    const urlCompleto = `${this.url}/${id}`;
+    return this.http.delete<CategoriaExcluida>(urlCompleto);
+  }
+
   selecionarTodos(): Observable<ListarCategorias[]> {
     return this.http.get<ListarCategorias[]>(this.url);
   }
 
-  selecionarPorId(id: number) {
+  selecionarPorId(id: number): Observable<DetalhesCategoria> {
     const urlCompleto = `${this.url}/${id}`;
     return this.http.get<DetalhesCategoria>(urlCompleto);
   }

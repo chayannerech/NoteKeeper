@@ -3,6 +3,7 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { ListarCategoriasComponent } from './views/categorias/listar/listar-categorias.component';
 import { InserirCategoriaComponent } from './views/categorias/inserir/inserir-categorias.component';
 import { EditarCategoriaComponent } from './views/categorias/editar/editar-categorias.component';
+import { ExcluirCategoriasComponent } from './views/categorias/excluir/excluir-categorias.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -13,7 +14,8 @@ export const routes: Routes = [
       { path: '', redirectTo: 'listar', pathMatch: 'full'},
       { path: 'listar', component: ListarCategoriasComponent},
       { path: 'inserir', component: InserirCategoriaComponent},
-      { path: 'editar/:id', component: EditarCategoriaComponent}
+      { path: 'editar/:id', component: EditarCategoriaComponent},
+      { path: 'excluir/:id', component: ExcluirCategoriasComponent}
     ],
   },
 ];
