@@ -126,6 +126,13 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "https://chayannerech.github.io/NoteKeeper/",
+            "repo": "https://github.com/chayannerech/NoteKeeper.git"
+          }
         }
       }
     }
