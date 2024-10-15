@@ -22,3 +22,15 @@
   padding: 1px;
   color: gray;
 }
+
+.app-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (width < 1400px) {
+  .app-card-header {
+    display: flex;
+    flex-direction: column;
+  }
+}
