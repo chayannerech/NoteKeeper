@@ -7,11 +7,13 @@ import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
 import { InserirCategoria } from '../models/categoria.models';
 import { CategoriaService } from '../services/categoria.service';
+import { NotificacaoService } from '../../../core/notificacao/notificacao.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-inserir-categorias',
   standalone: true,
-  imports: [ RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule ],
+  imports: [ NgIf, RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule ],
   templateUrl: './inserir-categorias.component.html'
 })
 
@@ -21,7 +23,7 @@ export class InserirCategoriaComponent {
   constructor(
     private router: Router,
     private categoriaService: CategoriaService,
-    //private notificacao: NotificacaoService
+    private notificacao: NotificacaoService
   ) {
     this.categoriaForm = new FormGroup({
       titulo: new FormControl<string>('', [
@@ -41,9 +43,9 @@ export class InserirCategoriaComponent {
     const novaCategoria: InserirCategoria = this.categoriaForm.value;
 
     this.categoriaService.cadastrar(novaCategoria).subscribe((res) => {
-      // this.notificacao.sucesso(
-      //   `O registro ID [${res.id}] foi cadastrado com sucesso!`
-      // );
+      this.notificacao.sucesso(
+        `A categoria ${res.titulo} foi cadastrada com sucesso!`
+      );
 
       this.router.navigate(['/categorias']);
     });
