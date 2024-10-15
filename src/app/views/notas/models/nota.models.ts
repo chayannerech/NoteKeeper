@@ -37,6 +37,21 @@ export interface DetalhesNota {
   conteudo: string;
   categoriaId: number;
   categoria: ListarCategorias;
+  arquivada: boolean;
+}
+export interface ArquivarNota {
+  id: number;
+  titulo: string;
+  conteudo: string;
+  categoriaId: number;
+  categoria: ListarCategorias;
+  arquivada: boolean;}
+export interface NotaArquivada {
+  id: number;
+  titulo: string;
+  conteudo: string;
+  categoriaId: number;
+  categoria: ListarCategorias;
 }
 
 export interface NotaExcluida {}
