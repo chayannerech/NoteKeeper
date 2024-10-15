@@ -59,9 +59,9 @@ export class InserirNotaComponent implements OnInit {
     this.categorias$ = this.categoriaService.selecionarTodos();
   }
 
-  // get titulo() {
-  //   return this.NotaForm.get('titulo');
-  // }
+  get titulo() {
+    return this.notaForm.get('titulo');
+  }
 
   cadastrar() {
     if (this.notaForm.invalid) return;
@@ -83,7 +83,8 @@ export class InserirNotaComponent implements OnInit {
     return controle.pristine;
   }
 
-  mapearTituloDaCategoria(categoriaSelecionada: any,categorias: ListarCategorias[]) {
-    throw new Error('Method not implemented.');
-    }
+  mapearTituloDaCategoria(id: number,categorias: ListarCategorias[]) {
+    const categoria = categorias.find((categoria) => categoria.id === id);
+    return categoria ? categoria.titulo : 'Categoria não encontrada';
+  }
 }
