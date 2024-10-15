@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DetalhesNota, EditarNota, InserirNota, ListarNota, NotaEditada, NotaExcluida, NotaInserida } from '../models/nota.models';
+import { DetalhesNota, EditarNota, InserirNota, ListarNotas, NotaEditada, NotaExcluida, NotaInserida } from '../models/nota.models';
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +26,10 @@ export class NotaService {
     return this.http.delete<NotaExcluida>(urlCompleto);
   }
 
-  selecionarTodos(): Observable<ListarNota[]> {
+  selecionarTodos(): Observable<ListarNotas[]> {
     const urlCompleto = `${this.url}?_expand=categoria`;
 
-    return this.http.get<ListarNota[]>(urlCompleto);
+    return this.http.get<ListarNotas[]>(urlCompleto);
   }
 
   selecionarPorId(id: number): Observable<DetalhesNota> {

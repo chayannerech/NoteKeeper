@@ -5,24 +5,58 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Observable } from 'rxjs';
-import { ListarNota } from '../models/nota.models';
+import { Observable, of } from 'rxjs';
+import { ListarNotas } from '../models/nota.models';
 import { NotaService } from '../services/nota.service';
+import { MatChipsModule } from '@angular/material/chips';
+import { CategoriaService } from '../../categorias/services/categoria.service';
+import { ListarCategorias } from '../../categorias/models/categoria.models';
 
 @Component({
   selector: 'app-listar-notas',
   standalone: true,
-  imports: [ RouterLink, NgForOf, NgIf, AsyncPipe, MatCardModule, MatButtonModule, MatIconModule, MatTooltipModule ],
+  imports: [
+    RouterLink,
+    NgForOf,
+    NgIf,
+    AsyncPipe,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatChipsModule
+  ],
   templateUrl: './listar-nota.component.html',
   styleUrl: './listar-nota.component.scss'
 })
 
-export class ListarNotasComponent implements OnInit {
-  notas$?: Observable<ListarNota[]>;
+export class ListarNotassComponent implements OnInit {
+  notas$?: Observable<ListarNotas[]>;
+  categorias$?: Observable<ListarCategorias[]>;
+  notasEmCache: ListarNotas[];
 
-  constructor( private notaService: NotaService ) {}
+  constructor( private notaService: NotaService, private categoriaService: CategoriaService ) {
+    this.notasEmCache = [];
+  }
 
   ngOnInit(): void {
-    this.notas$ = this.notaService.selecionarTodos();
+    this.categorias$ = this.categoriaService.selecionarTodos();
+    this.notaService.selecionarTodos().subscribe(notas => {
+      this.notasEmCache = notas;
+      this.notas$ = of(notas);
+    });
+  }
+
+  filtrar(categoriaId?: number) {
+    const notasFiltradas = this.obterNotasFiltradas(this.notasEmCache, categoriaId);
+
+    this.notas$ = of(notasFiltradas);
+  }
+
+  private obterNotasFiltradas(notas: ListarNotas[], categoriaId?: number) {
+    if (categoriaId)
+      return notas.filter(n => n.categoriaId == categoriaId)
+
+    return notas;
   }
 }

@@ -1,6 +1,6 @@
 import { ListarCategorias } from "../../categorias/models/categoria.models";
 
-export interface ListarNota {
+export interface ListarNotas {
   id: number;
   titulo: string;
   conteudo: string;
