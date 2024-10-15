@@ -39,9 +39,9 @@ export class EditarCategoriaComponent implements OnInit{
     this.categoriaService.selecionarPorId(this.id).subscribe((res) => this.trazerValoresParaEdicao(res));
   }
 
-  // get titulo() {
-  //   return this.categoriaForm.get('titulo');
-  // }
+  get titulo() {
+    return this.categoriaForm.get('titulo');
+  }
 
   editar() {
     if (this.categoriaForm.invalid) return;

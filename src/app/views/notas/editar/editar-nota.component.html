@@ -17,6 +17,7 @@
             placeholder="Ex: Lavar o cachorro"
           />
           <mat-icon matSuffix color="primary">title</mat-icon>
+          <mat-error *ngIf="titulo?.invalid">O título é obrigatório</mat-error>
         </mat-form-field>
 
         <mat-form-field class="w-100" appearance="fill">

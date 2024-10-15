@@ -31,9 +31,9 @@ export class InserirCategoriaComponent {
     });
   }
 
-  // get titulo() {
-  //   return this.categoriaForm.get('titulo');
-  // }
+  get titulo() {
+    return this.categoriaForm.get('titulo');
+  }
 
   cadastrar() {
     if (this.categoriaForm.invalid) return;

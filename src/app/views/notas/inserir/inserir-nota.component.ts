@@ -51,7 +51,9 @@ export class InserirNotaComponent implements OnInit {
         Validators.minLength(3),
       ]),
       conteudo: new FormControl<string>(''),
-      categoriaId: new FormControl<number>(0),
+      categoriaId: new FormControl<number>(0, [
+        Validators.min(1)
+      ]),
     });
   }
 
@@ -61,6 +63,10 @@ export class InserirNotaComponent implements OnInit {
 
   get titulo() {
     return this.notaForm.get('titulo');
+  }
+
+  get categoriaId() {
+    return this.notaForm.get('categoriaId');
   }
 
   cadastrar() {
