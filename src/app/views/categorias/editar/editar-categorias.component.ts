@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CategoriaService } from '../services/categoria.service';
 import { CategoriaEditada, DetalhesCategoria, EditarCategoria } from '../models/categoria.models';
+import { NotificacaoService } from '../../../core/notificacao/notificacao.service';
 
 @Component({
   selector: 'app-editar-categorias',
@@ -22,7 +23,7 @@ export class EditarCategoriaComponent implements OnInit{
     private route: ActivatedRoute,
     private router: Router,
     private categoriaService: CategoriaService,
-    //private notificacao: NotificacaoService
+    private notificacao: NotificacaoService
   ) {
     this.categoriaForm = new FormGroup({
       titulo: new FormControl<string>('', [
@@ -35,7 +36,7 @@ export class EditarCategoriaComponent implements OnInit{
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
 
-    if (!this.id) return console.error('Não foi possível encontrar o id requisitado');
+    if (!this.id) return this.notificacao.erro('Não foi possível encontrar o id requisitado');
     this.categoriaService.selecionarPorId(this.id).subscribe((res) => this.trazerValoresParaEdicao(res));
   }
 
@@ -45,14 +46,14 @@ export class EditarCategoriaComponent implements OnInit{
 
   editar() {
     if (this.categoriaForm.invalid) return;
-    if (!this.id) return console.error('Não foi possível encontrar o id requisitado');
+    if (!this.id) return this.notificacao.erro('Não foi possível encontrar o id requisitado');
 
     const categoriaEditada: EditarCategoria = this.categoriaForm.value;
 
     this.categoriaService.editar(this.id, categoriaEditada).subscribe((res) => {
-      // this.notificacao.sucesso(
-      //   `O registro ID [${res.id}] foi cadastrado com sucesso!`
-      // );
+      this.notificacao.sucesso(
+        `A categoria ${res.titulo} foi editada com sucesso!`
+      );
 
       this.router.navigate(['/categorias']);
     });

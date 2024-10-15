@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { ListarCategorias } from '../../categorias/models/categoria.models';
 import { CategoriaService } from '../../categorias/services/categoria.service';
+import { NotificacaoService } from '../../../core/notificacao/notificacao.service';
 
 @Component({
   selector: 'app-editar-notas',
@@ -45,8 +46,8 @@ export class EditarNotaComponent implements OnInit{
     private route: ActivatedRoute,
     private router: Router,
     private notaService: NotaService,
-    private categoriaService: CategoriaService
-    //private notificacao: NotificacaoService
+    private categoriaService: CategoriaService,
+    private notificacao: NotificacaoService
   ) {
     this.notaForm = new FormGroup({
       titulo: new FormControl<string>('', [
@@ -62,7 +63,7 @@ export class EditarNotaComponent implements OnInit{
     this.id = this.route.snapshot.params['id'];
     this.categorias$ = this.categoriaService.selecionarTodos();
 
-    if (!this.id) return console.error('Não foi possível encontrar o id requisitado');
+    if (!this.id) return this.notificacao.erro('Não foi possível encontrar o id requisitado');
     this.notaService.selecionarPorId(this.id).subscribe((res) => this.trazerValoresParaEdicao(res));
   }
 
@@ -72,14 +73,14 @@ export class EditarNotaComponent implements OnInit{
 
   editar() {
     if (this.notaForm.invalid) return;
-    if (!this.id) return console.error('Não foi possível encontrar o id requisitado');
+    if (!this.id) return this.notificacao.erro('Não foi possível encontrar o id requisitado');
 
     const notaEditada: EditarNota = this.notaForm.value;
 
     this.notaService.editar(this.id, notaEditada).subscribe((res) => {
-      // this.notificacao.sucesso(
-      //   `O registro ID [${res.id}] foi cadastrado com sucesso!`
-      // );
+      this.notificacao.sucesso(
+        `A nota ${res.titulo} foi editada com sucesso!`
+      );
 
       this.router.navigate(['/notas']);
     });

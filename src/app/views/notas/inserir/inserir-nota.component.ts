@@ -77,7 +77,7 @@ export class InserirNotaComponent implements OnInit {
 
     this.notaService.cadastrar(novaNota).subscribe((res) => {
       this.notificacao.sucesso(
-        `O registro ID [${res.id}] foi cadastrado com sucesso!`
+        `A nota ${res.titulo} foi cadastrada com sucesso!`
       );
 
       this.router.navigate(['/notas']);
