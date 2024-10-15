@@ -42,8 +42,8 @@ export class ListarNotassComponent implements OnInit {
   ngOnInit(): void {
     this.categorias$ = this.categoriaService.selecionarTodos();
     this.notaService.selecionarTodos().subscribe(notas => {
-      this.notasEmCache = notas.filter(n => !n.arquivada);
-      this.notas$ = of(notas.filter(n => !n.arquivada));
+      this.notasEmCache = notas.filter(n => !n.arquivada && !n.naLixeira);
+      this.notas$ = of(notas.filter(n => !n.arquivada && !n.naLixeira));
     });
   }
 

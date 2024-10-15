@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ArquivarNota, DetalhesNota, EditarNota, InserirNota, ListarNotas, NotaArquivada, NotaEditada, NotaExcluida, NotaInserida } from '../models/nota.models';
+import { ArquivarNota, DetalhesNota, EditarNota, EnviarNotaParaLixeira, InserirNota, ListarNotas, NotaArquivada, NotaEditada, NotaEnviadaParaLixeira, NotaExcluida, NotaInserida } from '../models/nota.models';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
@@ -41,5 +41,10 @@ export class NotaService {
   arquivar(id: number, notaArquivada: ArquivarNota): Observable<NotaArquivada> {
     const urlCompleto = `${this.url}/${id}`;
     return this.http.put<NotaArquivada>(urlCompleto, notaArquivada);
+  }
+
+  enviarParaLixeira(id: number, notaEnviadaParaLixeira: EnviarNotaParaLixeira): Observable<NotaEnviadaParaLixeira> {
+    const urlCompleto = `${this.url}/${id}`;
+    return this.http.put<NotaEnviadaParaLixeira>(urlCompleto, notaEnviadaParaLixeira);
   }
 }

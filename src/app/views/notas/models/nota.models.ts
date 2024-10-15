@@ -6,13 +6,15 @@ export interface ListarNotas {
   conteudo: string;
   categoriaId: number;
   categoria: ListarCategorias;
-  arquivada: boolean
+  arquivada: boolean;
+  naLixeira: boolean
 }
 export interface InserirNota {
   titulo: string;
   conteudo: string;
   categoriaId: number;
-  arquivada: boolean
+  arquivada: boolean;
+  naLixeira: boolean
 }
 export interface NotaInserida {
   id: number;
@@ -38,6 +40,7 @@ export interface DetalhesNota {
   categoriaId: number;
   categoria: ListarCategorias;
   arquivada: boolean;
+  naLixeira: boolean
 }
 export interface ArquivarNota {
   id: number;
@@ -45,8 +48,24 @@ export interface ArquivarNota {
   conteudo: string;
   categoriaId: number;
   categoria: ListarCategorias;
-  arquivada: boolean;}
+  arquivada: boolean;
+}
 export interface NotaArquivada {
+  id: number;
+  titulo: string;
+  conteudo: string;
+  categoriaId: number;
+  naLixeira: boolean
+}
+export interface EnviarNotaParaLixeira {
+  id: number;
+  titulo: string;
+  conteudo: string;
+  categoriaId: number;
+  categoria: ListarCategorias;
+  naLixeira: boolean
+}
+export interface NotaEnviadaParaLixeira {
   id: number;
   titulo: string;
   conteudo: string;
