@@ -37,4 +37,9 @@ export class NotaService {
     const urlCompleto = `${this.url}/${id}?_expand=categoria`;
     return this.http.get<DetalhesNota>(urlCompleto);
   }
+
+  atualizar(id: number): Observable<DetalhesNota> {
+    const urlCompleto = `${this.url}/${id}?_expand=categoria`;
+    return this.http.get<DetalhesNota>(urlCompleto);
+  }
 }

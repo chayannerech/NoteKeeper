@@ -5,7 +5,7 @@
     [opened]="(isHandset$ | async) === false"
   >
     <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
+    <mat-nav-list class="app-mat-nav">
       <a mat-list-item href="#">
         <mat-icon matListItemIcon>home</mat-icon>
         Dashboard
@@ -18,6 +18,13 @@
         <mat-icon matListItemIcon>collections_bookmarks</mat-icon>
         Notas
       </a>
+      <div class="mt-auto">
+        <hr>
+        <a mat-list-item href="notas-arquivadas">
+          <mat-icon matListItemIcon>folder</mat-icon>
+          Arquivados
+        </a>
+      </div>
     </mat-nav-list>
   </mat-sidenav>
 
