@@ -75,6 +75,7 @@ export class InserirNotaComponent implements OnInit {
 
     const novaNota: InserirNota = this.notaForm.value;
     novaNota.arquivada = false;
+    novaNota.naLixeira = false;
 
     this.notaService.cadastrar(novaNota).subscribe((res) => {
       this.notificacao.sucesso(

@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { NotificacaoService } from '../../core/notificacao/notificacao.service';
 import { ListarCategorias } from '../categorias/models/categoria.models';
 import { CategoriaService } from '../categorias/services/categoria.service';
-import { ListarNotas, ArquivarNota } from '../notas/models/nota.models';
+import { ListarNotas, ArquivarNota, EnviarNotaParaLixeira } from '../notas/models/nota.models';
 import { NotaService } from '../notas/services/nota.service';
 import { NgForOf, NgIf, AsyncPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,8 +33,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 export class LixeiraComponent {
   notas$?: Observable<ListarNotas[]>;
-  notaParaDesarquivar$?: Observable<ListarNotas>;
-  notaDesarquivada!: ArquivarNota;
+  notaParaRestaurar$?: Observable<ListarNotas>;
+  notaRestaurada!: EnviarNotaParaLixeira;
   categorias$?: Observable<ListarCategorias[]>;
   notasEmCache: ListarNotas[];
 
@@ -45,8 +45,8 @@ export class LixeiraComponent {
   ngOnInit(): void {
     this.categorias$ = this.categoriaService.selecionarTodos();
     this.notaService.selecionarTodos().subscribe(notas => {
-      this.notasEmCache = notas.filter(n => n.arquivada);
-      this.notas$ = of(notas.filter(n => n.arquivada));
+      this.notasEmCache = notas.filter(n => n.naLixeira);
+      this.notas$ = of(notas.filter(n => n.naLixeira));
     });
   }
 
@@ -63,22 +63,22 @@ export class LixeiraComponent {
     return notas;
   }
 
-  desarquivar(id: number) {
+  restaurar(id: number) {
     if (!id) {
       return this.notificacao.erro('Não foi possível encontrar o id requisitado');
     }
 
-    this.notaParaDesarquivar$ = this.notaService.selecionarPorId(id);
+    this.notaParaRestaurar$ = this.notaService.selecionarPorId(id);
 
-    this.notaParaDesarquivar$!.subscribe(nota => {
-      this.notaDesarquivada = {
+    this.notaParaRestaurar$!.subscribe(nota => {
+      this.notaRestaurada = {
         ...nota,
-        arquivada: false
+        naLixeira: false
       };
 
-      this.notaService.arquivar(id, this.notaDesarquivada).subscribe(() => {
+      this.notaService.enviarParaLixeira(id, this.notaRestaurada).subscribe(() => {
         this.notificacao.sucesso(
-          `A nota ${this.notaDesarquivada.titulo} foi desarquivada com sucesso!`
+          `A nota ${this.notaRestaurada.titulo} foi restaurada com sucesso!`
         );
 
         this.router.navigate(['/notas']);

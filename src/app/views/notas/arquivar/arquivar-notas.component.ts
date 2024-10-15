@@ -18,7 +18,7 @@ import { NotaService } from '../services/nota.service';
 export class ArquivarNotasComponent {
   id?: number;
   nota$?: Observable<DetalhesNota>;
-  notaAtualizada!: ArquivarNota;
+  notaArquivada!: ArquivarNota;
 
   constructor (
     private route: ActivatedRoute,
@@ -43,12 +43,12 @@ export class ArquivarNotasComponent {
     }
 
     this.nota$!.subscribe(nota => {
-      this.notaAtualizada = {
+      this.notaArquivada = {
         ...nota,
         arquivada: true
       };
 
-      this.notaService.arquivar(this.id!, this.notaAtualizada).subscribe(() => {
+      this.notaService.arquivar(this.id!, this.notaArquivada).subscribe(() => {
         this.notificacao.sucesso(
           `A nota de ID ${this.id} foi arquivada com sucesso!`
         );
