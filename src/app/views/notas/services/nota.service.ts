@@ -38,7 +38,7 @@ export class NotaService {
     return this.http.get<DetalhesNota>(urlCompleto);
   }
 
-  atualizar(id: number, notaArquivada: ArquivarNota): Observable<NotaArquivada> {
+  arquivar(id: number, notaArquivada: ArquivarNota): Observable<NotaArquivada> {
     const urlCompleto = `${this.url}/${id}`;
     return this.http.put<NotaArquivada>(urlCompleto, notaArquivada);
   }

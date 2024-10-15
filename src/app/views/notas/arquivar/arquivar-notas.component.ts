@@ -48,7 +48,7 @@ export class ArquivarNotasComponent {
         arquivada: true
       };
 
-      this.notaService.atualizar(this.id!, this.notaAtualizada).subscribe(() => {
+      this.notaService.arquivar(this.id!, this.notaAtualizada).subscribe(() => {
         this.notificacao.sucesso(
           `A nota de ID ${this.id} foi arquivada com sucesso!`
         );
