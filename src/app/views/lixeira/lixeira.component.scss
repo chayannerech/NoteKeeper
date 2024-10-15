@@ -1,0 +1,26 @@
+.app-container-lixeira {
+  padding: 30px 50px;
+}
+
+.app-btn-excluir {
+  background-color: #ffcdd5;
+  color: #8b5959;
+}
+
+.app-categoria-nota {
+  font-size: 14px;
+  padding: 1px;
+  color: gray;
+}
+
+.app-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (width < 1400px) {
+  .app-card-header {
+    display: flex;
+    flex-direction: column;
+  }
+}
