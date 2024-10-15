@@ -7,6 +7,7 @@ import { environment } from '../../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+
 export class NotaService {
   private readonly url = `${environment.API_URL}/notas`;
 
