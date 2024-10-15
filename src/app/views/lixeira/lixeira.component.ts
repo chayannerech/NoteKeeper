@@ -38,7 +38,12 @@ export class LixeiraComponent {
   categorias$?: Observable<ListarCategorias[]>;
   notasEmCache: ListarNotas[];
 
-  constructor( private router: Router, private notaService: NotaService, private categoriaService: CategoriaService, private notificacao: NotificacaoService ) {
+  constructor(
+    private router: Router,
+    private notaService: NotaService,
+    private categoriaService: CategoriaService,
+    private notificacao: NotificacaoService
+  ) {
     this.notasEmCache = [];
   }
 
@@ -46,19 +51,20 @@ export class LixeiraComponent {
     this.categorias$ = this.categoriaService.selecionarTodos();
     this.notaService.selecionarTodos().subscribe(notas => {
       this.notasEmCache = notas.filter(n => n.naLixeira);
-      this.notas$ = of(notas.filter(n => n.naLixeira));
+      this.notas$ = of(this.notasEmCache);
+
+      this.iniciarTemporizadoresDeExclusao();
     });
   }
 
   filtrar(categoriaId?: number) {
     const notasFiltradas = this.obterNotasFiltradas(this.notasEmCache, categoriaId);
-
     this.notas$ = of(notasFiltradas);
   }
 
   private obterNotasFiltradas(notas: ListarNotas[], categoriaId?: number) {
     if (categoriaId)
-      return notas.filter(n => n.categoriaId == categoriaId)
+      return notas.filter(n => n.categoriaId == categoriaId);
 
     return notas;
   }
@@ -81,10 +87,28 @@ export class LixeiraComponent {
           `A nota ${this.notaRestaurada.titulo} foi restaurada com sucesso!`
         );
 
+        this.notasEmCache = this.notasEmCache.filter(n => n.id !== id);
         this.router.navigate(['/notas']);
       });
 
       this.notificacao.erro('Erro ao carregar a nota.');
+    });
+  }
+
+  private iniciarTemporizadoresDeExclusao() {
+    this.notasEmCache.forEach(nota => {
+      setTimeout(() => {
+        this.excluirAutomaticamente(nota.id);
+      }, 10000);
+    });
+  }
+
+  private excluirAutomaticamente(id: number) {
+    this.notaService.excluir(id).subscribe(() => {
+      this.notificacao.sucesso(`A nota de ID ${id} foi excluída automaticamente após 10 segundos!`);
+
+      this.notasEmCache = this.notasEmCache.filter(n => n.id !== id);
+      this.notas$ = of(this.notasEmCache);
     });
   }
 }
