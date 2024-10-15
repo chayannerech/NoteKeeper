@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DetalhesNota, EditarNota, InserirNota, ListarNotas, NotaEditada, NotaExcluida, NotaInserida } from '../models/nota.models';
+import { ArquivarNota, DetalhesNota, EditarNota, InserirNota, ListarNotas, NotaArquivada, NotaEditada, NotaExcluida, NotaInserida } from '../models/nota.models';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class NotaService {
   private readonly url = `${environment.API_URL}/notas`;
 
@@ -35,5 +36,10 @@ export class NotaService {
   selecionarPorId(id: number): Observable<DetalhesNota> {
     const urlCompleto = `${this.url}/${id}?_expand=categoria`;
     return this.http.get<DetalhesNota>(urlCompleto);
+  }
+
+  arquivar(id: number, notaArquivada: ArquivarNota): Observable<NotaArquivada> {
+    const urlCompleto = `${this.url}/${id}`;
+    return this.http.put<NotaArquivada>(urlCompleto, notaArquivada);
   }
 }

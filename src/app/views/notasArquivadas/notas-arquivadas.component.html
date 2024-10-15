@@ -1,18 +1,5 @@
-<main class="container-fluid app-container-notas">
-  <h1 class="fs-2">Lista de Notas</h1>
-  <section
-    aria-label="Opções"
-    class="row justify-content-center justify-content-lg-start g-1"
-  >
-    <a
-      mat-raised-button
-      class="col-md-6 col-lg-4 col-xxl-2 fs-6 py-4"
-      [routerLink]="['/notas', 'inserir']"
-    >
-      <mat-icon>bookmark_add</mat-icon>
-      Cadastrar
-    </a>
-  </section>
+<main class="container-fluid my-4">
+  <h1 class="fs-2">Notas Arquivadas</h1>
   <hr>
 
   <div class="row g-3 mt-2">
@@ -49,17 +36,10 @@
         <mat-card-footer class="d-flex justify-content-end p-3 mt-auto gap-1">
           <a mat-icon-button
             class="app-btn-arquivar"
-            [routerLink]="['/notas', 'arquivar', nota.id]"
-            matTooltip="Arquivar"
+            (click)="desarquivar(nota.id)"
+            matTooltip='Desarquivar'
           >
-            <mat-icon> folder </mat-icon>
-          </a>
-          <a mat-icon-button
-            class="app-btn-editar"
-            [routerLink]="['/notas', 'editar', nota.id]"
-            matTooltip="Editar"
-          >
-            <mat-icon> edit </mat-icon>
+            <mat-icon> folder_open </mat-icon>
           </a>
           <a mat-icon-button
             class="app-btn-excluir"
