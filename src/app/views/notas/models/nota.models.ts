@@ -6,11 +6,13 @@ export interface ListarNotas {
   conteudo: string;
   categoriaId: number;
   categoria: ListarCategorias;
+  arquivada: boolean
 }
 export interface InserirNota {
   titulo: string;
   conteudo: string;
   categoriaId: number;
+  arquivada: boolean
 }
 export interface NotaInserida {
   id: number;
