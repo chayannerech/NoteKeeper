@@ -15,7 +15,7 @@ import { NotificacaoService } from '../../../core/notificacao/notificacao.servic
   templateUrl: './enviar-para-lixeira.component.html',
 })
 
-export class EnviarParaLixeiraComponent implements OnInit {
+export class enviarParaLixeiraComponent implements OnInit {
   id?: number;
   nota$?: Observable<DetalhesNota>;
   notaEnviadaParaLixeira!: EnviarNotaParaLixeira;

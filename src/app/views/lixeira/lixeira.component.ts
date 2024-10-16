@@ -52,8 +52,6 @@ export class LixeiraComponent {
     this.notaService.selecionarTodos().subscribe(notas => {
       this.notasEmCache = notas.filter(n => n.naLixeira);
       this.notas$ = of(this.notasEmCache);
-
-      this.iniciarTemporizadoresDeExclusao();
     });
   }
 
@@ -92,23 +90,6 @@ export class LixeiraComponent {
       });
 
       this.notificacao.erro('Erro ao carregar a nota.');
-    });
-  }
-
-  private iniciarTemporizadoresDeExclusao() {
-    this.notasEmCache.forEach(nota => {
-      setTimeout(() => {
-        this.excluirAutomaticamente(nota.id);
-      }, 10000);
-    });
-  }
-
-  private excluirAutomaticamente(id: number) {
-    this.notaService.excluir(id).subscribe(() => {
-      this.notificacao.sucesso(`A nota de ID ${id} foi excluída automaticamente após 10 segundos!`);
-
-      this.notasEmCache = this.notasEmCache.filter(n => n.id !== id);
-      this.notas$ = of(this.notasEmCache);
     });
   }
 }
